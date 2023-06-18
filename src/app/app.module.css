@@ -1,0 +1,28 @@
+.main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .iframeContainer {
+    flex: 6;
+    height: 100%;
+  }
+  
+  .buttonContainer {
+    flex: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #000000 85%, #963e96);
+  }
+  
+  .lyricsContainer p {
+    color: white;
+    font-size: 1.3rem;
+  }
