@@ -3,12 +3,13 @@
 import { useEffect, useState } from 'react';
 import { HuddleIframe, iframeApi, useEventListner } from "@huddle01/iframe";
 import styles from "./app.module.css";
-import { Dropdown, DropdownButton } from 'react-bootstrap';
+import { Dropdown, DropdownButton, Button, ListGroup, Badge } from 'react-bootstrap';
 
 export default function App() {
   const [songOptions, setSongOptions] = useState(false);
   const [selectedSongLyrics, setSelectedSongLyrics] = useState('');
   const [isPlaying, setIsPlaying] = useState(false);
+  const [scores, setScores] = useState(false);
 
   // the `lobby:initialized` event can be used to know when the lobby has been loaded 
   useEventListner("lobby:initialized", () => {
@@ -36,6 +37,10 @@ export default function App() {
     setIsPlaying(!isPlaying);
   };
 
+  const showResults = () => {
+    setScores(true);
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.iframeContainer}>
@@ -51,6 +56,7 @@ export default function App() {
               <Dropdown.Item onClick={() => handleSongSelect('Sorry')}>Sorry</Dropdown.Item>
             </DropdownButton>
             {selectedSongLyrics && (
+              <>
               <div className={`mt-3 mx-2 ${styles.lyricsContainer}`} style={{ borderRadius: '10px', 
                                                                               backgroundColor: '#963e96',
                                                                               padding: '1rem',
@@ -58,8 +64,42 @@ export default function App() {
                                                                               maxHeight: '50%'}}>
                   <p>{selectedSongLyrics}</p>
               </div>
+
+              <div className="mt-5">
+                <Button variant="primary" size="sm">Next Player</Button>{' '}
+                <Button variant="primary" size="sm" onClick={showResults}>Show Results</Button>
+              </div>
+              </>
             )}
           </>
+        )}
+      </div>
+
+      <div className={styles.scoresContainer}>
+        {scores && (
+          <ListGroup as="ol">
+            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">Scores for the round</div>
+              </div>
+            </ListGroup.Item>
+
+            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">Vidhi</div>
+                Well done!
+              </div>
+              <Badge bg="primary" pill>91%</Badge>
+            </ListGroup.Item>
+            
+            <ListGroup.Item as="li" className="d-flex justify-content-between align-items-start">
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">Shreyas P</div>
+                Aw Keep Practicing
+              </div>
+              <Badge bg="primary" pill>78%</Badge>
+            </ListGroup.Item>
+          </ListGroup>
         )}
       </div>
 
